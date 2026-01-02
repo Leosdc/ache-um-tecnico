@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ache um Técnico | Soluções em TI</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Persistent Logo -->
+        <div class="logo-container" id="main-logo">
+            <img src="logo.png" alt="Ache um Técnico" class="premium-logo">
+        </div>
+
+        <!-- View Container -->
+        <main id="view-container">
+
+            <!-- Home View -->
+            <section id="home-view" class="view active">
+                <div class="split-screen">
+                    <div id="side-tecnico" class="side tecnico">
+                        <div class="side-content">
+                            <i data-lucide="wrench" class="side-icon"></i>
+                            <h2>Quero trabalhar</h2>
+                            <p>Sou analista de TI e quero oferecer meus serviços</p>
+                            <button id="btn-tecnico" class="btn-select">Começar</button>
+                        </div>
+                    </div>
+                    <div id="side-cliente" class="side cliente">
+                        <div class="side-content">
+                            <i data-lucide="user" class="side-icon"></i>
+                            <h2>Quero ajuda</h2>
+                            <p>Preciso de suporte, automação ou manutenção</p>
+                            <button id="btn-cliente" class="btn-select">Começar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Login View -->
+            <section id="login-view" class="view">
+                <div class="auth-card glass">
+                    <button class="btn-back"><i data-lucide="arrow-left"></i> Voltar</button>
+                    <h2 id="login-title">Login</h2>
+                    <form id="login-form">
+                        <div class="input-group">
+                            <label>E-mail</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="mail"></i>
+                                <input type="email" id="login-email" required placeholder="seu@email.com">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Senha</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="lock"></i>
+                                <input type="password" id="login-password" required placeholder="••••••••">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Entrar</button>
+                    </form>
+                    <p class="auth-footer">Não tem uma conta? <a href="#" id="go-to-register">Cadastre-se</a></p>
+                </div>
+            </section>
+
+            <!-- Register View -->
+            <section id="register-view" class="view">
+                <div class="auth-card register-card glass">
+                    <button class="btn-back"><i data-lucide="arrow-left"></i> Voltar</button>
+                    <h2 id="register-title">Cadastro</h2>
+                    <form id="register-form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Nome Completo</label>
+                                <input type="text" id="reg-name" required placeholder="João Silva">
+                            </div>
+                            <div class="input-group">
+                                <label>E-mail</label>
+                                <input type="email" id="reg-email" required placeholder="joao@email.com">
+                            </div>
+                            <div class="input-group">
+                                <label>WhatsApp / Telefone</label>
+                                <input type="tel" id="reg-phone" required placeholder="(11) 99999-9999">
+                            </div>
+                            <div class="input-group">
+                                <label>Senha</label>
+                                <input type="password" id="reg-password" required placeholder="••••••••">
+                            </div>
+
+                            <!-- Technician Specific -->
+                            <div class="input-group full-width tecnico-only">
+                                <label>Habilidades / Especialidades</label>
+                                <input type="text" id="reg-skills" placeholder="Excel, n8n, Suporte, Hardware...">
+                            </div>
+                            <div class="input-group tecnico-only">
+                                <label>Área de Atuação (Cidade/Região)</label>
+                                <input type="text" id="reg-area" placeholder="Ex: São Paulo - SP">
+                            </div>
+
+                            <!-- Common Address -->
+                            <div class="input-group">
+                                <label>Endereço / Localização</label>
+                                <input type="text" id="reg-address" required placeholder="Bairro, Cidade">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Criar Conta</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="view">
+                <!-- Dashboard content will be injected or toggled -->
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal glass">
+            <div class="modal-header">
+                <h2>Configurações da Conta</h2>
+                <button onclick="closeSettings()" class="btn-close"><i data-lucide="x"></i></button>
+            </div>
+            <form id="settings-form" onsubmit="handleSettingsSave(event)">
+                <div class="input-group">
+                    <label>Meio de Contato Preferido</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="message-circle"></i>
+                        <select id="settings-contact-pref"
+                            style="width: 100%; border: none; outline: none; background: transparent; padding: 1rem 0.75rem; font-size: 1rem; color: var(--dark);">
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="email">E-mail</option>
+                            <option value="both">Ambos</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top: 1.5rem;">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
