@@ -14,6 +14,9 @@
 </head>
 
 <body>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
     <div id="app">
         <!-- Persistent Logo -->
         <div class="logo-container" id="main-logo">
@@ -96,19 +99,47 @@
                             </div>
 
                             <!-- Technician Specific -->
-                            <div class="input-group full-width tecnico-only">
+                            <div class="input-group full-width tecnico-only" style="grid-column: span 2;">
                                 <label>Habilidades / Especialidades</label>
                                 <input type="text" id="reg-skills" placeholder="Excel, n8n, Suporte, Hardware...">
                             </div>
-                            <div class="input-group tecnico-only">
+                            <div class="input-group full-width tecnico-only" style="grid-column: span 2;">
                                 <label>Área de Atuação (Cidade/Região)</label>
                                 <input type="text" id="reg-area" placeholder="Ex: São Paulo - SP">
                             </div>
 
                             <!-- Common Address -->
-                            <div class="input-group">
-                                <label>Endereço / Localização</label>
-                                <input type="text" id="reg-address" required placeholder="Bairro, Cidade">
+                            <div class="input-group full-width" style="grid-column: span 2; margin-top: 1rem;">
+                                <label>Rua / Logradouro</label>
+                                <input type="text" id="reg-street" required placeholder="Digite para buscar...">
+                            </div>
+
+                            <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0;">
+                                <div class="input-group">
+                                    <label>Número</label>
+                                    <input type="text" id="reg-number" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Complemento</label>
+                                    <input type="text" id="reg-complement">
+                                </div>
+                            </div>
+
+                            <div class="form-grid"
+                                style="grid-template-columns: 2fr 1.5fr 80px; gap: 1rem; margin-bottom: 0;">
+                                <div class="input-group">
+                                    <label>Bairro</label>
+                                    <input type="text" id="reg-neighborhood" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Cidade</label>
+                                    <input type="text" id="reg-city" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>UF</label>
+                                    <input type="text" id="reg-state" required maxlength="2"
+                                        style="text-transform: uppercase;">
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn-primary">Criar Conta</button>
@@ -131,21 +162,73 @@
                 <h2>Configurações da Conta</h2>
                 <button onclick="closeSettings()" class="btn-close"><i data-lucide="x"></i></button>
             </div>
-            <form id="settings-form" onsubmit="handleSettingsSave(event)">
-                <div class="input-group">
-                    <label>Meio de Contato Preferido</label>
-                    <div class="input-wrapper">
-                        <i data-lucide="message-circle"></i>
-                        <select id="settings-contact-pref"
-                            style="width: 100%; border: none; outline: none; background: transparent; padding: 1rem 0.75rem; font-size: 1rem; color: var(--dark);">
-                            <option value="whatsapp">WhatsApp</option>
-                            <option value="email">E-mail</option>
-                            <option value="both">Ambos</option>
-                        </select>
+            <div class="modal-body">
+                <form id="settings-form" onsubmit="handleSettingsSave(event)">
+                    <div class="form-grid" style="grid-template-columns: 1fr;">
+                        <div class="input-group">
+                            <label>Nome Completo</label>
+                            <input type="text" id="settings-name" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>E-mail</label>
+                            <input type="email" id="settings-email" disabled style="opacity: 0.7; cursor: not-allowed;">
+                        </div>
+
+                        <div class="input-group">
+                            <label>WhatsApp / Telefone</label>
+                            <input type="tel" id="settings-phone" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Rua / Logradouro</label>
+                            <input type="text" id="settings-street" required placeholder="Digite para buscar...">
+                        </div>
+
+                        <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="input-group">
+                                <label>Número</label>
+                                <input type="text" id="settings-number" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Complemento</label>
+                                <input type="text" id="settings-complement">
+                            </div>
+                        </div>
+
+                        <div class="form-grid"
+                            style="grid-template-columns: 2fr 1.5fr 80px; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="input-group">
+                                <label>Bairro</label>
+                                <input type="text" id="settings-neighborhood" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Cidade</label>
+                                <input type="text" id="settings-city" required>
+                            </div>
+                            <div class="input-group">
+                                <label>UF</label>
+                                <input type="text" id="settings-state" required maxlength="2"
+                                    style="text-transform: uppercase;">
+                            </div>
+                        </div>
+
+                        <!-- Technical Specific Settings -->
+                        <div class="input-group settings-tecnico-only" style="display: none;">
+                            <label>Habilidades</label>
+                            <input type="text" id="settings-skills">
+                        </div>
+
+                        <div class="input-group settings-tecnico-only" style="display: none;">
+                            <label>Área de Atuação</label>
+                            <input type="text" id="settings-area">
+                        </div>
+
+                        <!-- Contact pref removed -->
                     </div>
-                </div>
-                <button type="submit" class="btn-primary" style="margin-top: 1.5rem;">Salvar Alterações</button>
-            </form>
+                    <button type="submit" class="btn-primary" style="margin-top: 1.5rem;">Salvar Alterações</button>
+                </form>
+            </div>
         </div>
     </div>
 
